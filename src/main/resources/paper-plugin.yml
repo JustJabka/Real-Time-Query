@@ -1,0 +1,4 @@
+name: RealTimeQuery
+version: '1.0'
+main: justjabka.realtime.RealTimeQuery
+api-version: '1.21'
