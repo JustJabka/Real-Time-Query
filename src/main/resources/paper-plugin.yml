@@ -1,4 +1,13 @@
 name: RealTimeQuery
-version: '1.0'
+description: Query real time in game
+version: '1.1'
+author: JustJabka
+website: https://github.com/JustJabka/Real-Time-Query
+
 main: justjabka.realtime.RealTimeQuery
-api-version: '1.21'
+bootstrapper: justjabka.realtime.RealTimeQueryBootstrap
+api-version: '1.21.11'
+permissions:
+  rtq.command.rtq:
+    default: op
+    description: 'Allows to use /rtq'

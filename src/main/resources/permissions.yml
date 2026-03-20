@@ -1,0 +1,3 @@
+rtq.command.rtq:
+  default: op
+  description: 'Allows to use /rtq'
