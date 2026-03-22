@@ -1,4 +1,4 @@
-package justjabka.realtime;
+package justjabka.realTimeQuery;
 
 import com.mojang.brigadier.context.CommandContext;
 import io.papermc.paper.command.brigadier.CommandSourceStack;

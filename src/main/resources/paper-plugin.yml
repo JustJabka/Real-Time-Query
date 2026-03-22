@@ -4,8 +4,8 @@ version: '1.1'
 author: JustJabka
 website: https://github.com/JustJabka/Real-Time-Query
 
-main: justjabka.realtime.RealTimeQuery
-bootstrapper: justjabka.realtime.RealTimeQueryBootstrap
+main: justjabka.realTimeQuery.RealTimeQuery
+bootstrapper: justjabka.realTimeQuery.RealTimeQueryBootstrap
 api-version: '1.21.11'
 permissions:
   rtq.command.rtq:
