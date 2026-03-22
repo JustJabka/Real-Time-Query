@@ -11,8 +11,12 @@ import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.time.DayOfWeek;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.TextStyle;
+import java.util.Locale;
 
 @SuppressWarnings("UnstableApiUsage")
 public class RealTimeQueryBootstrap implements PluginBootstrap {
@@ -38,20 +42,30 @@ public class RealTimeQueryBootstrap implements PluginBootstrap {
     private int queryDay(CommandContext<CommandSourceStack> ctx) {
         CommandSender sender = ctx.getSource().getSender();
 
-        int day = getDateTime().getDayOfWeek().getValue();
+        DayOfWeek day = getDateTime().getDayOfWeek();
+
         if (sender instanceof Player) {
-            sender.sendRichMessage("The day is <day>", Placeholder.component("day", () -> Component.text(day)));
+            Locale senderLocale = ((Player) sender).locale();
+            String dayFormatted = day.getDisplayName(TextStyle.FULL, senderLocale);
+
+            sender.sendRichMessage("The day is <day>", Placeholder.component("day", () -> Component.text(dayFormatted)));
         }
 
-        return day;
+        return day.getValue();
     }
 
     private int queryTime(CommandContext<CommandSourceStack> ctx) {
         CommandSender sender = ctx.getSource().getSender();
 
-        int time = getDateTime().getHour() * 100 + getDateTime().getMinute(); // Format HHmm (18:30 -> 1830)
+        final DateTimeFormatter TIME_FORMAT_MESSAGE = DateTimeFormatter.ofPattern("HH:mm", Locale.ROOT);
+        final DateTimeFormatter TIME_FORMAT_RETURN = DateTimeFormatter.ofPattern("HHmm", Locale.ROOT);
+
+        int time = Integer.parseInt(TIME_FORMAT_RETURN.format(getDateTime()));
+
         if (sender instanceof Player) {
-            sender.sendRichMessage("The time is <time>", Placeholder.component("time", () -> Component.text(time)));
+            String timeFormatted = TIME_FORMAT_MESSAGE.format(getDateTime());
+
+            sender.sendRichMessage("The time is <time>", Placeholder.component("time", () -> Component.text(timeFormatted)));
         }
 
         return time;
